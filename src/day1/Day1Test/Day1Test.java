@@ -16,7 +16,7 @@ public class Day1Test {
             }
         }
         if (isPrime){
-            System.out.println(bil + " adalah bilangan prime");
+            System.out.println(bil + " adalah bilangan prima!");
         }
 
         /* 2. Buat logic untuk nyari nilai terbesar dan terkecil dari sebuah array pake math method */
@@ -57,17 +57,12 @@ public class Day1Test {
         /* 5. Buat logic untuk menghitung jumlah huruf vokal dalam string 'kata' */
         System.out.println("== SOAL 5");
 
-        String[] arrKata = kata.split("");
-
-        int vocal = 0;
-        for (String i : arrKata){
-            if (i.equalsIgnoreCase("a")) vocal++;
-            if (i.equalsIgnoreCase("i")) vocal++;
-            if (i.equalsIgnoreCase("u")) vocal++;
-            if (i.equalsIgnoreCase("e")) vocal++;
-            if (i.equalsIgnoreCase("o")) vocal++;
+        int count = 0;
+        String vocal = "aiueo";
+        for (char i : kata.toCharArray()){
+          if (vocal.indexOf(i) != -1) count++;
         }
-        System.out.println("Jumlah huruf vokal dalam kata : " + vocal);
+        System.out.println("Jumlah huruf vokal dalam kata : " + count);
 
 
         /* 6. Buat array yang terdiri dari 5 mahasiswa, masing-masing punya 3 nilai : ujian, absen, kuis
