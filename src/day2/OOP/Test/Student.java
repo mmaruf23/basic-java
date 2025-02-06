@@ -1,8 +1,8 @@
 package day2.OOP.Test;
 
 public class Student {
-    private String nama;
-    private int nim;
+    public String nama;
+    public int nim;
     public int nilai;
     private static int totalStudent;
     public static int totalNilai = 0;
@@ -29,7 +29,7 @@ public class Student {
         System.out.println(" Nilai : " + this.nilai);
     }
 
-// versi dua
+
 
 
 
