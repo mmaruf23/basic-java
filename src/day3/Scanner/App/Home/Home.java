@@ -28,7 +28,7 @@ public class Home {
                 break;
             case PRODUCTS :
                 System.out.println("Navigate to products page!");
-                ProductMain.main();
+                ProductMain.main(null);
                 break;
             case CART :
                 System.out.println("Navigate to cart page!");

@@ -3,10 +3,20 @@ package day3.Scanner.App.Products;
 import java.util.Scanner;
 
 public class ProductMain {
-    public static void main() {
+    public static void main(String[] args) {
         Products.ProductController productController = new Products.ProductController();
 
         Scanner input = new Scanner(System.in);
+        // data mock
+        Products products1 = new Products("sabun", 1000, "category");
+        Products products2 = new Products("suban", 2000, "category");
+        Products products3 = new Products("saban", 3000, "category");
+        Products products4 = new Products("subun", 4000, "category");
+        productController.addProducts(products2);
+        productController.addProducts(products3);
+        productController.addProducts(products1);
+        productController.addProducts(products4);
+        // end data mock
         System.out.println("=== PRODUCT LIST ===");
         productController.displayProducts();
         System.out.println("====================");
@@ -36,18 +46,29 @@ public class ProductMain {
 
         }
 
+
+
         System.out.println("=== PRODUCT LIST ===");
         productController.displayProducts();
         System.out.println("====================");
 
         System.out.println("=== SORT PRODUCTS BY PRICE ===");
-        // sort method
+        // no. 1 sort method
+        productController.displayProductsSortedByPrice();
         System.out.println("====================");
 
         System.out.println("Apakah anda ingin mencari product? (Y/N) : ");
+        String doSearch = input.nextLine();
+
         // method & logic untuk nyari product berdasarkan nama
+        if (doSearch.toLowerCase().equals("y")){
+            System.out.print("Masukan nama product yang ingin dicari : ");
+            String nameToSearch = input.nextLine();
+            productController.findProductByName(nameToSearch);
+        }
 
         // buat method save product ke file.
+
 
         // buat method read file product
     }
