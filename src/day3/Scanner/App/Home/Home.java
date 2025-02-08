@@ -1,6 +1,7 @@
 package day3.Scanner.App.Home;
 
 import day3.Scanner.App.Products.ProductMain;
+import day3.Scanner.App.Reviews.ReviewMain;
 
 import java.util.Scanner;
 
@@ -35,6 +36,7 @@ public class Home {
                 break;
             case REVIEW :
                 System.out.println("Navigate to review page!");
+                ReviewMain.main(null);
                 // buat menu review yang bisa nambahin nama reviewer dan rating (int), kemudian tampilin semua review.
                 break;
         }

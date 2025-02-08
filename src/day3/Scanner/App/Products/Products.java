@@ -14,6 +14,8 @@ public class Products {
         this.category = category;
     }
 
+    public double getPrice(){return price;}
+
     // inner class
     public static class ProductController {
         private final List<Products> productsList;
@@ -39,12 +41,13 @@ public class Products {
         // METHOD SORT BY PRICE
         public void displayProductsSortedByPrice(){
             if (!productsList.isEmpty()){
-                Collections.sort(productsList, new Comparator<Products>() {
-                    @Override
-                    public int compare(Products o1, Products o2) {
-                        return Double.compare(o1.price, o2.price);
-                    }
-                });
+//                Collections.sort(productsList, new Comparator<Products>() {
+//                    @Override
+//                    public int compare(Products o1, Products o2) {
+//                        return Double.compare(o1.price, o2.price);
+//                    }
+//                });
+                productsList.sort(Comparator.comparingDouble(Products::getPrice));
                 for (Products product : productsList){
                     System.out.println("nama: " + product.name + ", price: " + product.price + ", category : " + product.category);
                 }
