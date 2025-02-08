@@ -1,5 +1,6 @@
 package day3.Scanner.App.Products;
 
+import java.io.*;
 import java.util.*;
 
 public class Products {
@@ -33,7 +34,9 @@ public class Products {
             }
         }
 
-        // SORT BY PRICE
+        // tambahin method mainnya disini
+
+        // METHOD SORT BY PRICE
         public void displayProductsSortedByPrice(){
             if (!productsList.isEmpty()){
                 Collections.sort(productsList, new Comparator<Products>() {
@@ -50,12 +53,14 @@ public class Products {
             }
         }
 
+        // METHOD FIND BY NAME
         public void findProductByName(String nameToFind){
             if (!productsList.isEmpty()){
                 System.out.println("Menampilkan data product dengan nama : " + nameToFind);
                 for (Products product : productsList){
-                    if (product.name.equals(nameToFind)) {
-                    System.out.println("nama: " + product.name + ", price: " + product.price + ", category : " + product.category);
+                    if (product.name.equalsIgnoreCase(nameToFind)) {
+                        System.out.println("Hasil pencarian : ");
+                        System.out.println(" nama: " + product.name + ", price: " + product.price + ", category : " + product.category);
                     }
                 }
             } else {
@@ -63,6 +68,37 @@ public class Products {
             }
         }
 
-        // tambahin method mainnya disini
+        // METHOD SAVE PRODUCT TO FILE
+        public void saveProduct(){
+            String fileName = "D:\\bootcamp-aigen\\main-class\\backend\\basic_java\\src\\day3\\Scanner\\App\\Products\\Products.txt";
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+                for (Products product : productsList){
+                    writer.write("nama: " + product.name + ", price: " + product.price + ", category : " + product.category + ",");
+                    writer.newLine();
+                }
+                writer.close();
+                System.out.println("Product berhasil disimpan!");
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+
+        // METHOD READ SAVED PRODUCT
+        public void readProductFile(){
+            String filePath = "D:\\bootcamp-aigen\\main-class\\backend\\basic_java\\src\\day3\\Scanner\\App\\Products\\Products.txt";
+            File file = new File(filePath);
+            if (file.exists()){
+                try (BufferedReader reader = new BufferedReader(new FileReader(filePath))){
+                    String line;
+                    while((line = reader.readLine()) != null){
+                        System.out.println(line);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("File tidak ditemukan \n path : " + file.getAbsolutePath());
+            }
+        }
     }
 }

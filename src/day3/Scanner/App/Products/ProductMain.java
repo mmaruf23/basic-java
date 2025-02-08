@@ -21,32 +21,28 @@ public class ProductMain {
         productController.displayProducts();
         System.out.println("====================");
 
-        System.out.println("Apakah anda ingin menambahkan product baru? (Y/N) : ");
+        System.out.print("Apakah anda ingin menambahkan product baru? (Y/N) : ");
         String addProductChoice = input.nextLine().toLowerCase();
 
         if (addProductChoice.equals("y")){
-            System.out.println("Masukan jumlah product : ");
+            System.out.print("Masukan jumlah product baru : ");
             int jumlahProduct = input.nextInt();
             input.nextLine();
 
             for (int i = 0; i < jumlahProduct; i++) {
                 System.out.println("Data product ke - " + (i + 1));
-                System.out.println("Nama : ");
+                System.out.print("Nama : ");
                 String nama = input.nextLine();
-                System.out.println("Harga : ");
+                System.out.print("Harga : ");
                 double harga = input.nextDouble();
                 input.nextLine();
-                System.out.println("Kategori : ");
+                System.out.print("Kategori : ");
                 String category = input.nextLine();
 
                 Products products = new Products(nama, harga, category);
                 productController.addProducts(products);
-
             }
-
         }
-
-
 
         System.out.println("=== PRODUCT LIST ===");
         productController.displayProducts();
@@ -60,7 +56,7 @@ public class ProductMain {
         System.out.println("Apakah anda ingin mencari product? (Y/N) : ");
         String doSearch = input.nextLine();
 
-        // method & logic untuk nyari product berdasarkan nama
+        // no. 2 method & logic untuk nyari product berdasarkan nama
         if (doSearch.toLowerCase().equals("y")){
             System.out.print("Masukan nama product yang ingin dicari : ");
             String nameToSearch = input.nextLine();
@@ -68,8 +64,9 @@ public class ProductMain {
         }
 
         // buat method save product ke file.
-
+        productController.saveProduct();
 
         // buat method read file product
+        productController.readProductFile();
     }
 }
