@@ -1,0 +1,4 @@
+nama: sabun, price: 1000.0, category : category,
+nama: suban, price: 2000.0, category : category,
+nama: saban, price: 3000.0, category : category,
+nama: subun, price: 4000.0, category : category,
