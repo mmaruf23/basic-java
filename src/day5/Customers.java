@@ -2,14 +2,13 @@ package day5;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.*;
 
 import java.sql.*;
 import java.util.Scanner;
 
 public class Customers {
-    String url = "jdbc:postgresql://localhost:5432/task";
+    String url = "jdbc:postgresql://localhost:5432/store";
     String username = "postgres";
     String password = "root";
     Scanner input = new Scanner(System.in);
@@ -25,15 +24,16 @@ public class Customers {
             if (!newCustomer.isBlank()){
                 break;
             }
+
             System.out.println("Nama customer tidak boleh kosong!");
         }
-        input.close();
-        System.out.println(newCustomer);
-
+        System.out.print("Masukan alamat customer : ");
+        String newAddress = input.nextLine();
         try (Connection connection = DriverManager.getConnection(url, username, password); // agar koneksi otomatis tertutup saat query selesai untuk mencegah resource leak
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO customers (name) values (?)"))
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO customers (name, address) values (?, ?)"))
         {
             preparedStatement.setString(1, newCustomer);
+            preparedStatement.setString(2, newAddress);
             preparedStatement.executeUpdate();
             System.out.println("Data berhasil ditambahkan!");
         } catch (SQLException e) {
@@ -75,7 +75,6 @@ public class Customers {
         int id = input.nextInt();input.nextLine();
         System.out.print("Address Baru : ");
         String address = input.nextLine();
-        input.close();
 
 
         try (Connection connection = DriverManager.getConnection(url, username, password); // agar koneksi otomatis tertutup saat query selesai untuk mencegah resource leak
@@ -108,8 +107,6 @@ public class Customers {
             }
             System.out.println("ID tidak valid!");
         }
-        input.close();
-
 
         try (Connection connection = DriverManager.getConnection(url, username, password); // agar koneksi otomatis tertutup saat query selesai untuk mencegah resource leak
              PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM customers where id = ?;"))
@@ -130,7 +127,7 @@ public class Customers {
     public void showCustomers(){
         try (Connection connection = DriverManager.getConnection(url, username, password); // agar koneksi otomatis tertutup saat query selesai untuk mencegah resource leak
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM customers"))
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM customers ORDER BY id"))
         {
 
             ResultSetMetaData metaData = resultSet.getMetaData();

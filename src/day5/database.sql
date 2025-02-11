@@ -1,7 +1,6 @@
-CREATE DATABASE task
+CREATE DATABASE store
     WITH
-    OWNER = postgres
-
+    OWNER = postgres;
 
 CREATE TABLE categories (
 	id SERIAL PRIMARY KEY,
@@ -16,8 +15,7 @@ CREATE TABLE products (
 	category_id INT NOT NULL,
 	CONSTRAINT fk_product_categories FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
 );
-
-
+\dt
 CREATE TABLE customers (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(255),
@@ -108,10 +106,10 @@ VALUES	(1, 1, 1),
 		(7, 1, 2);
 
 INSERT INTO product_reviews (product_id, customer_id, review)
-VALUES	(2, 1, 5),
-		(4, 2, 4),
-		(3, 3, 5),
-		(6, 4, 5);
+VALUES	(2, 1, 5), -- mie ayam oleh fachri dengan review * 5
+		(4, 2, 4), -- samsung s23 oleh alwi review * 4
+		(3, 3, 3), -- samsung galaxy oleh dimas * 5
+		(6, 4, 5); -- laptop thinkpad oleh maruf * 5
 
 INSERT INTO payment_details (order_id, status)
 VALUES 	(1, TRUE),
@@ -212,13 +210,16 @@ UPDATE products SET name = 'Food Update', price = 10000, description = 'Sample U
 DELETE FROM products where id = 4;
 
 -- ALTER TABLE ADD COLUMN
-ALTER TABLE customers ADD COLUMN address VARCHAR(255);
+ALTER TABLE customers ADD COLUMN age INT;
+-- ALTER TABLE DELETE COLUMN
+--ALTER TABLE customers DELETE COLUMN age INT;
+
 
 -- PRODUK DENGAN HARGA TERMAHAL
 SELECT * FROM products WHERE price = (SELECT MAX(price) FROM products);
 -- PRODUK DENGAN HARGA TERMURAH
 SELECT * FROM products WHERE price = (SELECT MIN(price) FROM products);
--- JUMLAH BERLANJA
+-- JUMLAH TOTAL BERLANJA PER CUSTOMER
 SELECT o.id as order_id,c.name AS customer_name, SUM(i.qty * p.price) AS total_order FROM orders o
 INNER JOIN order_items i ON o.id = i.order_id
 RIGHT JOIN customers c on o.customer_id = c.id

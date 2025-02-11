@@ -4,9 +4,7 @@ import java.util.Scanner;
 
 public class MainMenu {
     public static void main(String[] args) {
-
-
-
+        Scanner input = new Scanner(System.in);
         // Menu
         while (true){
             System.out.println("===== HOME =====");
@@ -16,7 +14,6 @@ public class MainMenu {
             System.out.println("================");
             System.out.print("Pilih menu : ");
 
-            Scanner input = new Scanner(System.in);
             int menu = input.nextInt();
             input.nextLine();
 
@@ -31,7 +28,7 @@ public class MainMenu {
                         System.out.println("5. Update Produk Price");
                         System.out.println("6. Lihat Produk Termahal");
                         System.out.println("7. Lihat Produk Termurah");
-                        System.out.println("0. Exit");
+                        System.out.println("0. Kembali ke menu awal");
                         System.out.println("================");
                         System.out.print("Pilih menu : ");
                         int menuProduct = input.nextInt();
@@ -43,7 +40,6 @@ public class MainMenu {
                             case 1:
                                 System.out.println("===== TAMBAH PRODUK =====");
                                 products.addProduct();
-
                                 System.out.println("=========================");
                                 break;
                             case 2:
@@ -68,12 +64,12 @@ public class MainMenu {
                                 break;
                             case 6:
                                 System.out.println("===== LIHAT PRODUK TERMAHAL =====");
-                                products.updateProductPrice();
+                                products.showMostExpensiveProduct();
                                 System.out.println("=========================");
                                 break;
                             case 7:
                                 System.out.println("===== LIHAT PRODUK TERMURAH =====");
-                                products.updateProductPrice();
+                                products.showCheapestProduct();
                                 System.out.println("=========================");
                                 break;
                             case 0:
@@ -95,7 +91,7 @@ public class MainMenu {
                         System.out.println("4. Lihat Customer");
                         System.out.println("5. Update Customer Address");
                         System.out.println("6. Lihat Total Belanja All Customer");
-                        System.out.println("0. Exit");
+                        System.out.println("0. Kembali ke menu awal ...");
                         System.out.println("================");
                         System.out.print("Pilih menu : ");
 
@@ -147,7 +143,7 @@ public class MainMenu {
                 case 0:
                     System.out.println("Terima kasih, sampai jumpa!");
                     input.close();
-                    System.exit(0);
+                    return;
                 default:
                     System.out.println("Menu yang anda pilih tidak tersedia.");
 

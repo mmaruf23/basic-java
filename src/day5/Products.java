@@ -2,14 +2,13 @@ package day5;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.node.*;
 
 import java.sql.*;
 import java.util.Scanner;
 
 public class Products {
-    String url = "jdbc:postgresql://localhost:5432/task";
+    String url = "jdbc:postgresql://localhost:5432/store";
     String username = "postgres";
     String password = "root";
     Scanner input = new Scanner(System.in);
@@ -26,10 +25,9 @@ public class Products {
         String description = input.nextLine();
         System.out.print("ID Category : ");
         int category_id = input.nextInt();
-//        input.close();
 
-        try (Connection connection = DriverManager.getConnection(url, username, password); // agar koneksi otomatis tertutup saat query selesai untuk mencegah resource leak
-                 PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO products (name, price, description, category_id) VALUES (?, ?, ?, ?)"))
+        try (Connection connection = DriverManager.getConnection(url, username, password); // try-with-resource : agar koneksi dapat otomatis tertutup saat query selesai untuk mencegah resource leak
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO products (name, price, description, category_id) VALUES (?, ?, ?, ?)"))
         {
             preparedStatement.setString(1, name);
             preparedStatement.setDouble(2, price);
@@ -55,10 +53,9 @@ public class Products {
         String description = input.nextLine();
         System.out.print("ID Category : ");
         int category_id = input.nextInt(); input.nextLine();
-//        input.close();
 
 
-        try (Connection connection = DriverManager.getConnection(url, username, password); // agar koneksi otomatis tertutup saat query selesai untuk mencegah resource leak
+        try (Connection connection = DriverManager.getConnection(url, username, password);
              PreparedStatement preparedStatement = connection.prepareStatement("UPDATE products SET name = ?, price = ?, description = ?, category_id = ? WHERE id = ?;"))
         {
             preparedStatement.setString(1, name);
@@ -83,7 +80,6 @@ public class Products {
         int id = input.nextInt();input.nextLine();
         System.out.print("Harga Baru : ");
         double price = input.nextDouble(); input.nextLine();
-//        input.close();
 
 
         try (Connection connection = DriverManager.getConnection(url, username, password); // agar koneksi otomatis tertutup saat query selesai untuk mencegah resource leak
@@ -96,7 +92,7 @@ public class Products {
             if (updated > 0){
                 System.out.println("Harga Product berhasil di Update");
             } else {
-                System.out.println("Product dengan ID : " + id + "Tidak ditemukan!");
+                System.out.println("Product dengan ID : " + id + " tidak ditemukan!");
             }
 
         } catch (SQLException e) {
@@ -110,7 +106,7 @@ public class Products {
         int id;
         // input value disini
         while (true){
-            System.out.print("Masukan i0d product yang ingin dihapus : ");
+            System.out.print("Masukan id product yang ingin dihapus : ");
             id = input.nextInt();input.nextLine();
             if (id > 0){
                 break;
@@ -121,7 +117,7 @@ public class Products {
 
 
         try (Connection connection = DriverManager.getConnection(url, username, password); // agar koneksi otomatis tertutup saat query selesai untuk mencegah resource leak
-             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM products where id = ?;"))
+             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM products where id = ?"))
         {
             preparedStatement.setInt(1, id);
             int deleted = preparedStatement.executeUpdate();
@@ -129,7 +125,7 @@ public class Products {
             if (deleted > 0){
                 System.out.println("Product berhasil dihapus");
             } else {
-                System.out.println("Product dengan ID : " + id + "Tidak ditemukan!");
+                System.out.println("Product dengan ID : " + id + " tidak ditemukan!");
             }
         } catch (SQLException e) {
             e.printStackTrace();
